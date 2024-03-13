@@ -4,6 +4,7 @@ import com.study.mvc.dto.DBStudyReqDto;
 import com.study.mvc.dto.DBStudyInsertRespDto;
 import com.study.mvc.dto.DBStudySelectRespDto;
 import com.study.mvc.entity.Study;
+import com.study.mvc.exception.DuplicatedException;
 import com.study.mvc.repository.DBStudyRepository;
 import lombok.Builder;
 import lombok.Data;
@@ -105,4 +106,11 @@ public class DBStudyService {
         Study study = dbStudyReqDto.toEntity(id);
         return dbStudyRepository.patchById(study);
     }
+    public void checkDuplicatedByName(String name) {
+
+        if(dbStudyRepository.findStudyByName(name) != null) {
+            throw new DuplicatedException("이름 중복 오류");
+        }
+    }
+
 }

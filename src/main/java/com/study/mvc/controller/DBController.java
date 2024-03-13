@@ -1,5 +1,6 @@
 package com.study.mvc.controller;
 
+import com.study.mvc.aop.annotation.TimeAspect;
 import com.study.mvc.dto.DBStudyReqDto;
 import com.study.mvc.service.DBStudyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ public class DBController {
         return ResponseEntity.ok(dbStudyService.createStudy(dbStudyReqDto));
     }
 
+    @TimeAspect
     @GetMapping("/select/study/{id}")
     public ResponseEntity<?> selectStudy(@PathVariable int id) {
 
@@ -30,6 +32,7 @@ public class DBController {
 
         return ResponseEntity.ok(dbStudyService.findStudyByName(name));
     }
+    @TimeAspect
     @GetMapping("/select/studies")
     public ResponseEntity<?> selectStudyAll() {
         return ResponseEntity.ok(dbStudyService.findAll());
